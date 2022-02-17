@@ -1,5 +1,6 @@
 require 'erubi'
 require './command'
+require './rimand'
 
 set :erb, :escape_html => true
 
@@ -23,10 +24,27 @@ helpers do
 end
 
 # Define a route at the root '/' of the app.
-get '/' do
+get '/doit' do
   @command = Command.new
   @processes, @error = @command.exec
 
   # Render the view
+  erb :appv
+end
+post '/doit' do
+  @name = params[:username]
+  # @command = Command.new
+  # @processes, @error = @command.exec
+  
+  # Render the view
+  erb :appv
+end
+
+get '/' do
+  @command = Rimand.new
+  @jobs, @error = @command.exec_jobstats
+
+  # Render the view
   erb :index
 end
+

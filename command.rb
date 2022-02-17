@@ -26,6 +26,7 @@ class Command
     stdout_str, stderr_str, status = Open3.capture3(to_s)
     if status.success?
       processes = parse(stdout_str)
+      
     else
       error = "Command '#{to_s}' exited with error: #{stderr_str}"
     end

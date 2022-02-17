@@ -15,4 +15,4 @@ function getMultipleSelectValues(id) {
     });
 
     return result;
-  }
+  }on

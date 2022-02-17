@@ -1,8 +1,7 @@
 <!DOCTYPE html>
     <head>
         <title>Dashboard</title>
-        <link rel="stylesheet" href="index.css">
-        <script type="text/javascript" src="/index.js"></script>
+      
     </head>
     <body>
         <div class="container light-text">
@@ -106,9 +105,16 @@
                         <h3>
                             Run Process
                         </h3>
-                        <button>
-                            Begin Workflow
-                        </button>
+                        <div> 
+                        <%= @name %>
+                        </div>
+                        <form action= <%= request.url + "/doit" %>  method="post">
+                        <div class="rendered-form">
+                        <input type="text" name="username" placeholder="Username" >
+
+                        <input type="submit" name="someAction" value="Begin workflow" />
+                        </form>
+    
                     </section>
                     <section class="section-card-less">
                         <div id="result-box" class="progress-box">
