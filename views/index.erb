@@ -1,3 +1,10 @@
+
+<!DOCTYPE html>
+<head>
+    <title>Dashboard</title>
+    <link type="text/css" href="/index.css" />
+</head>
+
 <h1><%=  Dir.getwd %></h1>
 
 Output generated: <%= Time.now %>
@@ -7,9 +14,12 @@ Output generated: <%= Time.now %>
         <h3>
             Run Process
         </h3>
-        <form action=<%= request.url + "/doit" %> method="get">
-        <input type="submit" name="someAction" value="Begin workflow" />
-        </form>
+
+        <a href= <%= request.url + "/doit" %> >
+          <button>Visit Google</button>
+        </a>
+
+        
     </section>
     <section class="section-card-less">
         <div id="result-box" class="progress-box">
@@ -19,12 +29,11 @@ Output generated: <%= Time.now %>
 </div>
 
 
-<div> job <%= @src %> submitted success!!! </div>
-<div> job <%= @dest %> submitted success!!! </div>
-<div> job <%= @actions %> submitted success!!! </div>
-<div> job <%= @folder %> submitted success!!! </div>
+<div> job <%= @jobid %> submitted success!!! </div>
+<div> job <%= @error %> error!!! </div>
+<div> job <%= @error2 %> error!!! </div>
 <pre>
-$ <%= @rimand %>
+$ <%= @rimand.to_s1 %>
 </pre>
 <table class="table table-bordered">
   <tr>
