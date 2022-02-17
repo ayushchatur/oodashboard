@@ -1,130 +1,42 @@
 <!DOCTYPE html>
     <head>
         <title>Dashboard</title>
-      
+        <link type="text/css" href="/index.css" />
     </head>
     <body>
-        <div class="container light-text">
-            <h1>Dashboard</h1>
-            <hr class="h-line">
-            <div class="row-standard">
-                <div class="column-standard flex-center-col">
-                    <section class="section-card">
-                        <h3>
-                            Runs on Promethion
-                        </h3>
-                        <div class="file-box">
-                            <select
-                                id="promethion-files"
-                                size="5"
-                                multiple
-                                class="file-selector"
-                            >
-                                <option value="/var/log/promethion.log">
-                                    /var/log/promethion.log
-                                </option>
-                                <option value="/var/log/test.log">
-                                    /var/log/test.log
-                                </option>
-                            </select>
-                        </div>
-                    </section>
-                    <section class="section-card">
-                        <h3>
-                            Runs on Maxam
-                        </h3>
-                        <div class="file-box">
-                            <select
-                                id="maxam-files"
-                                size="5"
-                                multiple
-                                class="file-selector"
-                            >
-                                <option value="/var/log/maxam.log">
-                                    /var/log/maxam.log
-                                </option>
-                                <option value="/var/log/test.log">
-                                    /var/log/test.log
-                                </option>
-                            </select>
-                        </div>
-                    </section>
-                </div>
-
-                <div class="column-standard flex-center-col">
-                    <div>
-                        <section class="section-card">
-                            <h3>
-                                Distribute data
-                            </h3>
-                            <!-- Input -->
-                            <h4 class="no-btm-pad">
-                                Destination
-                            </h4>
-                            <input type="checkbox" id="pickup" name="pickup" value="pickup">
-                            <label for="pickup"> pickup</label>
-                            <br>
-
-                            <input type="checkbox" id="gscdata" name="gscdata" value="gscdata">
-                            <label for="gscdata"> gscdata</label>
-                            <br>
-
-                            <input type="checkbox" id="archive" name="archive" value="archive">
-                            <label for="archive"> archive</label>
-                            <br>
-
-                            <input type="checkbox" id="pi_folder" name="pi_folder" value="pi_folder">
-                            <label for="pi_folder"> pi_folder</label>
-                            <br>
-                        </section>
-                        <section class="section-card">
-                            <h3>
-                                Available project folders
-                            </h3>
-                            <div class="file-box">
-                                <select
-                                    id="project-folders"
-                                    size="5"
-                                    multiple
-                                    class="file-selector"
-                                >
-                                    <option value="gscdata">
-                                        gscdata
-                                    </option>
-                                    <option value="rsetting_lab">
-                                        rsetting_lab
-                                    </option>
-                                </select>
-                            </div>
-                        </section>
-                    </div>
-                </div>
-
-                <div class="column-standard flex-center-col flex-col-h-between">
-                    <section class="section-card-less">
-                        <h3>
-                            Run Process
-                        </h3>
-                        <div> 
-                        <%= @name %>
-                        </div>
-                        <form action= <%= request.url + "/doit" %>  method="post">
-                        <div class="rendered-form">
-                        <input type="text" name="username" placeholder="Username" >
-
-                        <input type="submit" name="someAction" value="Begin workflow" />
-                        </form>
-    
-                    </section>
-                    <section class="section-card-less">
-                        <div id="result-box" class="progress-box">
-                            Progress box where we have data
-                        </div>
-                    </section>
-                </div>
-            </div>
-        </div>
-
+        <!-- Code by w3codegenerator.com -->
+<form class="generated-form"  method="POST" action=<%= request.url + "/doit" %> >
+<fieldset>
+  <legend> Workflow Params:: </legend>
+   <label for="src">Source </label><br>
+   <select id="src" name="src">
+      <option value="/home/ayushchatur/a.sh">/home/ayushchatur/a.sh</option>
+      <option value="saab">Saab</option>
+      <option value="mercedes">Mercedes</option>
+      <option value="audi">Audi</option>
+   </select> <br><br>
+   <label for="dest">Destination</label><br>
+   <select id="dest" name="dest">
+      <option value="/home/ayushchatur/test123">/home/ayushchatur/test123</option>
+      <option value="saab">Saab</option>
+      <option value="mercedes">Mercedes</option>
+      <option value="audi">Audi</option>
+   </select> <br><br>
+   <label>Actions</label><br>
+   <input type="checkbox" id="pickup" name="pickup" value="pickup">
+   <label for="pickup"> pickup</label><br>
+   <input type="checkbox" id="gscdata" name="gscdata" value="gscdata">
+   <label for="vehicle2"> gscdata</label><br>
+   <input type="checkbox" id="archive" name="archive" value="archive">
+   <label for="vehicle3"> archive</label><br><br>
+   <label for="folders">Project Folders:</label><br>
+   <select id="folders" name="folders">
+      <option value="gscdata">gscdata</option>
+      <option value="rsetting_lab">rsetting_lab</option>
+   </select> <br><br>
+   <input type="submit" value="Submit"><br><br>
+</fieldset>
+</form>
         <div class="waves">
             <svg
                 xmlns="http://www.w3.org/2000/svg"

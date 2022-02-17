@@ -4,10 +4,10 @@ require './rimand'
 
 set :erb, :escape_html => true
 
-if development?
-  require 'sinatra/reloader'
-  also_reload './command.rb'
-end
+# if development?
+#   require 'sinatra/reloader'
+#   also_reload './command.rb'
+# end
 
 helpers do
   def dashboard_title
@@ -25,24 +25,33 @@ end
 
 # Define a route at the root '/' of the app.
 get '/doit' do
-  @command = Command.new
-  @processes, @error = @command.exec
 
   # Render the view
   erb :appv
 end
 post '/doit' do
-  @name = params[:username]
+  @src = params[:src]
+  @dest = params[:dest]
+  @pickup = params[:pickup]
+  @gscdata = params[:gscdata]
+  @archive = params[:archive]
+  @folder = params[:folders]
   # @command = Command.new
-  # @processes, @error = @command.exec
+  # @jobid, @error = @command.exec(@src,@dest,@actions,@folder)
+
+  @rimand = Rimand.new
+  @jobs, @error = @rimand.exec_jobstats
+
+
   
   # Render the view
-  erb :appv
+  erb :index
 end
 
 get '/' do
-  @command = Rimand.new
-  @jobs, @error = @command.exec_jobstats
+  @jobid 
+  @rimand = Rimand.new
+  @jobs, @error = @rimand.exec_jobstats
 
   # Render the view
   erb :index

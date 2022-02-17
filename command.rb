@@ -1,26 +1,40 @@
 require 'open3'
 
 class Command
-  def to_s
-    "ps aux | egrep '[A]pp|[r]uby|[n]ginx'"
+  def new_file
+    "./batch_job_n.sh"
   end
 
-  AppProcess = Struct.new(:user, :pid, :pct_cpu, :pct_mem, :vsz, :rss, :tty, :stat, :start, :time, :command)
+  def to_s
+    "ssh $USER@tinkercliffs2 sbatch " + Dir.getwd + new_file
+  end
 
+
+  AppProcess = Struct.new(:jobid)
+
+  def format(src,dest)
+    filen = "./batch_job.sh"
+    text = File.read(filen)
+    new_text = text.gsub(/r_dst/,dest)
+    new_text = new_text.gsub(/r_src/,src)
+    File.write(new_file,new_text,mode: 'a')
+  end
   # Parse a string output from the `ps aux` command and return an array of
   # AppProcess objects, one per process
   def parse(output)
-    lines = output.strip.split("\n")
-    lines.map do |line|
-      AppProcess.new(*(line.split(" ", 11)))
-    end
+    lines = output.strip.split(" ")[3]
+
+    AppProcess.new(lines)
+
   end
 
   # Execute the command, and parse the output, returning and array of
   # AppProcesses and nil for the error string.
   #
   # returns [Array<Array<AppProcess>, String] i.e.[processes, error]
-  def exec
+  def exec(src,dest,actions,folder)
+    
+    format(src,dest)
     processes, error = [], nil
 
     stdout_str, stderr_str, status = Open3.capture3(to_s)

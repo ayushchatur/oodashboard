@@ -18,10 +18,14 @@ Output generated: <%= Time.now %>
     </section>
 </div>
 
-<pre>
-$ <%= @command %>
-</pre>
 
+<div> job <%= @src %> submitted success!!! <div>
+<div> job <%= @dest %> submitted success!!! <div>
+<div> job <%= @actions %> submitted success!!! <div>
+<div> job <%= @folder %> submitted success!!! <div>
+<pre>
+$ <%= @rimand %>
+</pre>
 <table class="table table-bordered">
   <tr>
     <th>jobid</th>
@@ -38,7 +42,6 @@ $ <%= @command %>
     <td><%= app.ntasks %></td>
     <td><%= app.epalsed %></td>
     <td><%= app.stat %></td>
-
   </tr>
   <% end %>
 

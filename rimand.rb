@@ -2,12 +2,10 @@ require 'open3'
 
 class Rimand
   def to_s
-    "ssh $USER@tinkercliffs2 sbatch " + Dir.getwd + "/batch_job.sh"
+    "ssh $USER@tinkercliffs2 sacct --format=jobid,jobname,ntasks,elapsed,state -u $USER"
   end
+  
 
-  def job_status
-    "ssh $USER@tinkercliffs2 sacct --format=jobid,jobname,ntasks,elapsed,state  -u $USER"
-  end
 
   # AppProcess = Struct.new(:user, :pid, :pct_cpu, :pct_mem, :vsz, :rss, :tty, :stat, :start, :time, :command)
   AppProcess = Struct.new(:jobid, :jobname, :ntasks, :epalsed, :stat)
@@ -28,19 +26,23 @@ class Rimand
   # AppProcesses and nil for the error string.
   #
   # returns [Array<Array<AppProcess>, String] i.e.[processes, error]
-  def format()
-    filen = "./batch_job.sh"
-    text = File.read(filen)
-    new_text = text.gsub(/r_dst/,"/home/ayushchatur/qu_wq")
-    new_text = new_text.gsub(/r_src/,"/home/ayushchatur/a.sh")
-    File.open(filen,"w"){|file| file.puts new_text} 
-  end
 
-  def exec_jobstats
-    format()
+  def submit_job(src, dest, actions,folder)
+    format(src,dest)
     items, error = [], nil
 
-    stdout_str, stderr_str, status = Open3.capture3(job_status)
+    stdout_str, stderr_str, status = Open3.capture3(job_submit)
+    if status.success?
+        items = parse(stdout_str)
+    else
+      error = "Command '#{to_s}' exited with error: #{stderr_str}"
+    end
+
+    [items, error]
+  end
+  def exec_jobstats
+    items, error = [], nil
+    stdout_str, stderr_str, status = Open3.capture3(to_s)
     if status.success?
         items = parse(stdout_str)
     else
