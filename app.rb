@@ -4,10 +4,6 @@ require './rimand'
 
 set :erb, :escape_html => true
 
-# if development?
-#   require 'sinatra/reloader'
-#   also_reload './command.rb'
-# end
 
 helpers do
   def dashboard_title
@@ -36,13 +32,8 @@ post '/doit' do
   @gscdata = params[:gscdata]
   @archive = params[:archive]
   @folder = params[:folders]
-  # @command = Command.new
-  # @jobid, @error = @command.exec(@src,@dest,@actions,@folder)
-
-  @rimand = Rimand.new
-  @jobs, @error = @rimand.exec_jobstats
-
-
+  @command = Command.new
+  @jobid, @error = @command.exec(@src,@dest,@actions,@folder)
   
   # Render the view
   erb :index

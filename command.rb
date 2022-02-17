@@ -19,13 +19,9 @@ class Command
     new_text = new_text.gsub(/r_src/,src)
     File.write(new_file,new_text,mode: 'a')
   end
-  # Parse a string output from the `ps aux` command and return an array of
-  # AppProcess objects, one per process
-  def parse(output)
-    lines = output.strip.split(" ")[3]
-
-    AppProcess.new(lines)
-
+  def parsejobid(output)
+    jobid = output.strip.split(" ")[3]
+    [jobid]
   end
 
   # Execute the command, and parse the output, returning and array of
@@ -39,7 +35,7 @@ class Command
 
     stdout_str, stderr_str, status = Open3.capture3(to_s)
     if status.success?
-      processes = parse(stdout_str)
+      processes = parsejobid(stdout_str)
       
     else
       error = "Command '#{to_s}' exited with error: #{stderr_str}"
