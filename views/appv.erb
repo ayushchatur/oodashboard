@@ -1,6 +1,6 @@
 <!DOCTYPE html>
     <head>
-        <title>Dashboard</title>
+        <title><% content_for :title, "#{@app.title} - #{OodAppkit.dashboard.title}" %> </title>
         <link type="text/css" href="/index.css" />
     </head>
     <body>
@@ -11,16 +11,12 @@
    <label for="src">Source </label><br>
    <select id="src" name="src">
       <option value="/home/ayushchatur/a.sh">/home/ayushchatur/a.sh</option>
-      <option value="saab">Saab</option>
-      <option value="mercedes">Mercedes</option>
-      <option value="audi">Audi</option>
+ 
    </select> <br><br>
    <label for="dest">Destination</label><br>
    <select id="dest" name="dest">
       <option value="/home/ayushchatur/test123">/home/ayushchatur/test123</option>
-      <option value="saab">Saab</option>
-      <option value="mercedes">Mercedes</option>
-      <option value="audi">Audi</option>
+
    </select> <br><br>
    <label>Actions</label><br>
    <input type="checkbox" id="pickup" name="pickup" value="pickup">

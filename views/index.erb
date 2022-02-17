@@ -28,10 +28,10 @@ Output generated: <%= Time.now %>
     </section>
 </div>
 
-
+<% if @jobid %>
 <div> job <%= @jobid %> submitted success!!! </div>
-<div> job <%= @error %> error!!! </div>
-<div> job <%= @error2 %> error!!! </div>
+<% end %>
+
 <pre>
 $ <%= @rimand.to_s1 %>
 </pre>

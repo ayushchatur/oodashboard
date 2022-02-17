@@ -2,18 +2,18 @@ require 'open3'
 
 class Command
   def new_file
-    "/copy_job_n.sh"
+    "/tar_job_n.sh"
   end
 
   def to_s2
-    "ssh $USER@tinkercliffs2 sbatch " + Dir.getwd + new_file
+    "ssh $USER@tinkercliffs2 sbatch " + Dir.getwd
   end
 
 
   AppProcess = Struct.new(:jobid)
 
   def format(src,dest)
-    filen =  "./copy_job.sh"
+    filen =  "./tar_job.sh"
     text = File.read(filen)
     new_text = text.gsub(/r_dest/,dest)
     new_text = new_text.gsub(/r_src/,src)
@@ -33,7 +33,7 @@ class Command
     format(src,dest)
     jobid, error = [], nil
 
-    stdout_str, stderr_str, status = Open3.capture3(to_s2)
+    stdout_str, stderr_str, status = Open3.capture3(to_s2 + new_file)
     if status.success?
       jobid = parsejobid(stdout_str)
       
@@ -41,6 +41,6 @@ class Command
       error = "Command '#{to_s2}' exited with error: #{stderr_str}"
     end
 
-    [stdout_str, error]
+    [jobid, error]
   end
 end
